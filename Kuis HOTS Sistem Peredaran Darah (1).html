@@ -1,0 +1,127 @@
+<!DOCTYPE html><html lang="id"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>Kuis HOTS Sistem Peredaran Darah</title>
+<style>
+:root{--bg:#faf8f5;--fg:#211d1c;--mu:#6b6360;--card:#fff;--bd:#ddd5d0;--ac:#a61e2a;--on:#fff;--sel:#fbe9ea;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#181514;--fg:#f1ebe8;--mu:#a49b97;--card:#232020;--bd:#3b3534;--ac:#e5606b;--on:#181514;--sel:#3a2527}}
+:root[data-theme="dark"]{--bg:#181514;--fg:#f1ebe8;--mu:#a49b97;--card:#232020;--bd:#3b3534;--ac:#e5606b;--on:#181514;--sel:#3a2527}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.55 system-ui,-apple-system,"Segoe UI",sans-serif}
+main{max-width:720px;margin:0 auto;padding:20px 16px 40px}
+h1{font-size:1.4rem;margin:0 0 4px}.mu{color:var(--mu);font-size:.9rem}
+.card{background:var(--card);border:1px solid var(--bd);border-radius:12px;padding:18px;margin-top:16px}
+input{width:100%;box-sizing:border-box;padding:10px;margin:6px 0 12px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--fg);font:inherit}
+button{font:inherit;cursor:pointer}
+.btn{background:var(--ac);color:var(--on);border:0;border-radius:8px;padding:10px 20px;font-weight:600}.btn:disabled{opacity:.45;cursor:not-allowed}
+.opt{display:block;width:100%;text-align:left;margin:8px 0;padding:11px 12px;border:1px solid var(--bd);border-radius:10px;background:var(--card);color:var(--fg)}
+.opt:not(:disabled):hover{border-color:var(--ac)}.opt.s{background:var(--sel);border-color:var(--ac)}.opt:disabled{cursor:default}
+.bar{height:6px;background:var(--bd);border-radius:3px;overflow:hidden}.bar i{display:block;height:100%;background:var(--ac)}
+.big{font-size:2.6rem;font-weight:700;color:var(--ac)}
+.w{overflow-x:auto}table{border-collapse:collapse;width:100%;font-size:.88rem}td,th{padding:6px 8px;border-bottom:1px solid var(--bd);text-align:left;white-space:nowrap}
+ul{padding-left:20px;margin:8px 0}
+</style></head><body><main id="app"></main>
+<script>
+const Q=[
+["Seorang atlet maraton memiliki curah jantung istirahat 5,5 L/menit dengan denyut jantung 50 kali/menit. Berapa volume sekuncupnya (mL)?",["110","73","88","100","125"]],
+["Volume akhir diastol ventrikel kiri 120 mL dan volume akhir sistol 48 mL. Berapa fraksi ejeksinya?",["60%","40%","50%","72%","80%"]],
+["Pada denyut 75 kali/menit satu siklus jantung 0,8 detik. Saat olahraga denyut menjadi 100 kali/menit dan lama sistol ventrikel tetap 0,3 detik. Berapa lama diastol ventrikel sekarang?",["0,3 detik","0,2 detik","0,4 detik","0,5 detik","0,6 detik"]],
+["Tekanan darah pasien 150/90 mmHg. Berapa tekanan arteri rata-rata (MAP = diastol + ⅓ tekanan nadi)?",["110 mmHg","100 mmHg","105 mmHg","115 mmHg","120 mmHg"]],
+["Saat berlari, MAP atlet 120 mmHg dan curah jantung 20 L/menit. Berapa resistensi perifer total (mmHg·menit/L)?",["6","2","4","8","10"]],
+["Menurut hukum Poiseuille, bila jari-jari arteriol menyempit menjadi setengahnya (panjang dan viskositas tetap), resistensi aliran menjadi … kali semula.",["16","2","4","8","32"]],
+["Luas penampang aorta 3 cm² dengan kecepatan aliran 30 cm/detik. Total luas penampang seluruh kapiler 2.500 cm². Berapa kecepatan aliran di kapiler (cm/detik)?",["0,036","0,0036","0,36","3,6","36"]],
+["Di ujung arteriol kapiler: tekanan hidrostatik kapiler 30, osmotik koloid kapiler 25, hidrostatik interstisial 2, osmotik interstisial 3 (mmHg). Berapa tekanan filtrasi neto dan arah cairan?",["+6 mmHg, keluar dari kapiler","−6 mmHg, masuk ke kapiler","+6 mmHg, masuk ke kapiler","+28 mmHg, keluar dari kapiler","0 mmHg, seimbang"]],
+["Pada hipoalbuminemia, tekanan osmotik koloid kapiler turun dari 25 menjadi 17 mmHg (hidrostatik kapiler 30, interstisial 2, osmotik interstisial 3 mmHg). Tekanan filtrasi neto dan akibatnya:",["14 mmHg; terjadi edema","6 mmHg; normal","8 mmHg; dehidrasi","22 mmHg; tidak ada perubahan","−14 mmHg; edema"]],
+["Volume darah dewasa 5 L dengan hematokrit 45%. Berapa volume plasmanya?",["2,75 L","2,25 L","2,50 L","3,00 L","3,25 L"]],
+["Estimasi produksi eritrosit per hari bila konsentrasi 5×10⁶ sel/µL, volume darah 5 L (1 L = 10⁶ µL), umur eritrosit 120 hari, dan jumlah dianggap tetap:",["≈ 2,1×10¹¹","≈ 2,1×10⁹","≈ 2,1×10¹⁰","≈ 2,1×10¹²","≈ 2,5×10¹³"]],
+["Hemoglobin 15 g/dL tersaturasi 98%. Tiap 1 g Hb mengikat maksimum 1,34 mL O₂. Berapa mL O₂ terikat Hb per 100 mL darah?",["19,7","15,0","17,7","20,1","21,6"]],
+["Pasien anemia memiliki Hb separuh normal dengan saturasi sama. Agar pengiriman O₂ ke jaringan setara orang normal dengan curah jantung 5 L/menit, curah jantungnya harus menjadi (abaikan O₂ terlarut):",["10 L/menit","7,5 L/menit","12,5 L/menit","15 L/menit","20 L/menit"]],
+["Konsumsi O₂ tubuh 250 mL/menit. Kandungan O₂ darah arteri 20 mL/dL dan vena campuran 15 mL/dL. Dengan prinsip Fick, curah jantung adalah:",["5 L/menit","2,5 L/menit","3,5 L/menit","7,5 L/menit","12,5 L/menit"]],
+["Saat otot berkontraksi intensif, PCO₂, suhu, dan H⁺ lokal meningkat. Dampaknya pada kurva disosiasi oksihemoglobin:",["Bergeser ke kanan, P50 naik, afinitas turun sehingga O₂ lebih banyak dilepas","Bergeser ke kiri, P50 turun, afinitas naik sehingga O₂ lebih banyak dilepas","Bergeser ke kanan, P50 turun, afinitas naik sehingga O₂ tertahan","Bergeser ke kiri, P50 naik, afinitas turun sehingga O₂ tertahan","Tidak bergeser karena saturasi hanya ditentukan PO₂"]],
+["EKG dengan kecepatan kertas 25 mm/detik menunjukkan jarak R–R konstan 15 mm. Berapa denyut jantungnya?",["100 kali/menit","60 kali/menit","75 kali/menit","125 kali/menit","150 kali/menit"]],
+["Darah menyerap 4 mL/dL CO₂ dari jaringan. Bila ±70% diangkut sebagai bikarbonat, 23% karbaminohemoglobin, 7% terlarut, berapa mL/dL CO₂ yang menjadi HCO₃⁻?",["2,8","0,28","0,92","1,0","3,7"]],
+["Aliran balik vena naik sehingga EDV naik dari 120 menjadi 150 mL, ESV tetap 50 mL. Sesuai hukum Frank–Starling, volume sekuncup dan fraksi ejeksi barunya:",["100 mL; 66,7%","100 mL; 58,3%","70 mL; 66,7%","120 mL; 80%","150 mL; 100%"]],
+["Ibu golongan darah A heterozigot menikah dengan ayah golongan B heterozigot. Berapa peluang anak laki-laki bergolongan darah AB?",["1/8","1/2","1/4","1/16","3/8"]],
+["Ibu Rh⁻ (rr) menikah dengan ayah Rh⁺ heterozigot (Rr). Anak pertama Rh⁺ dan ibu telah tersensitisasi. Berapa peluang anak kedua berisiko eritroblastosis fetalis?",["1/2","0","1/4","3/4","1"]],
+["Di daerah endemis malaria, frekuensi alel HbS 0,1 (populasi seimbang Hardy–Weinberg). Dari 5.000 penduduk, perkiraan jumlah pembawa (heterozigot):",["900","450","500","810","1.000"]],
+["Darah pasien menggumpal oleh antiserum anti-A, tidak oleh anti-B, dan tidak oleh anti-D. Donor sel darah merah yang aman untuk pasien ini:",["O⁻","AB⁻","B⁻","A⁺","O⁺"]],
+["Leukosit total 12.000/µL dengan eosinofil 8%. Nilai normal eosinofil absolut 50–500/µL. Interpretasi yang tepat:",["960/µL, eosinofilia; konsisten dengan alergi atau infeksi cacing","960/µL, normal","96/µL, eosinopenia","960/µL, neutrofilia akibat infeksi bakteri","1.200/µL, limfositosis"]],
+["Jantung berdenyut 72 kali/menit dengan volume sekuncup 70 mL. Berapa liter darah dipompa ventrikel kiri dalam 24 jam?",["≈ 7.258 L","≈ 5.040 L","≈ 10.080 L","≈ 72.576 L","≈ 725.760 L"]],
+["Pada curah jantung 5 L/menit: tekanan arteri sistemik rata-rata 100 mmHg, atrium kanan 2 mmHg; arteri pulmonalis rata-rata 15 mmHg, atrium kiri 5 mmHg. Perbandingan resistensi sistemik : paru ≈",["10 : 1","2 : 1","5 : 1","20 : 1","50 : 1"]],
+["Kapiler memfiltrasi ±20 L cairan/hari dan hanya mereabsorpsi ±17 L. Bila pembuluh limfe tersumbat total (misalnya filariasis), secara teoritis berapa liter cairan menumpuk di interstisial dalam 5 hari?",["15","3","5","17","20"]],
+["Pada ikan bersirkulasi tunggal, darah melewati kapiler insang lalu langsung ke jaringan. Konsekuensinya:",["Tekanan darah turun setelah insang sehingga aliran ke jaringan lambat dan laju metabolisme terbatas","Darah teroksigenasi dan terdeoksigenasi bercampur di ventrikel","Tekanan darah ke jaringan lebih tinggi daripada mamalia karena dipompa dua kali","Jantung tiga ruang sehingga ada pirau kanan–kiri","Pertukaran gas terjadi di jantung"]],
+["Ventrikel tunggal katak menerima campuran 40% darah teroksigenasi (saturasi 98%) dan 60% terdeoksigenasi (saturasi 60%). Saturasi rata-rata darah yang dipompa ke tubuh ≈",["75%","60%","68%","79%","98%"]],
+["Setelah bayi lahir, foramen ovale menutup secara fungsional terutama karena:",["Tekanan atrium kiri melebihi atrium kanan akibat aliran darah paru meningkat","Tekanan atrium kanan melebihi atrium kiri setelah plasenta terlepas","Prostaglandin meningkat sehingga katup berkontraksi","Ventrikel kanan berhenti berkontraksi","Vena umbilikalis menekan septum"]],
+["Darah ibu: Hb 12 g/dL jenuh 60%. Darah janin pada PO₂ plasenta sama: Hb 18 g/dL jenuh 70% (1,34 mL O₂/g Hb). Selisih kandungan O₂ janin–ibu ≈",["7,2 mL/dL","3,6 mL/dL","9,6 mL/dL","16,9 mL/dL","0 mL/dL"]],
+["Seorang pendaki beraklimatisasi ke 4.000 mdpl: Hb naik dari 14 ke 18 g/dL, saturasi turun dari 98% ke 85%. Perubahan kandungan O₂ terikat Hb (mL/dL):",["+2,1","−4,3","0","+4,3","+6,0"]],
+["Pada lansia dengan arteri kaku, tekanan darah 160/70 mmHg. Tekanan nadi dan MAP-nya (MAP = diastol + ⅓ tekanan nadi):",["Nadi 90; MAP 100 mmHg","Nadi 90; MAP 110 mmHg","Nadi 80; MAP 100 mmHg","Nadi 160; MAP 115 mmHg","Nadi 70; MAP 100 mmHg"]],
+["Volume darah 5 L dan curah jantung istirahat 5 L/menit. Pada olahraga berat curah jantung 25 L/menit. Waktu rata-rata satu volume darah beredar penuh (detik):",["12","6","24","30","60"]],
+["Aliran darah koroner 250 mL/menit, kandungan O₂ arteri 20 mL/dL, ekstraksi O₂ miokardium 70%. Berapa mL O₂ dikonsumsi miokardium per menit?",["35","14","50","175","250"]],
+["Ibu pembawa hemofilia A (XᴴXʰ) menikah dengan ayah normal. Berapa peluang anak berikutnya perempuan pembawa?",["1/4","0","1/8","1/2","3/4"]],
+["Henderson–Hasselbalch: pH = 6,1 + log([HCO₃⁻] / (0,03 × PCO₂)). Pasien hipoventilasi: HCO₃⁻ 24 mmol/L, PCO₂ 80 mmHg. Berapa pH-nya?",["7,1","7,0","7,2","7,3","7,4"]],
+["Jaringan istirahat PO₂ 40 mmHg (Hb jenuh 75%); saat olahraga PO₂ 20 mmHg (Hb jenuh 35%). Hb 15 g/dL, jenuh arteri 98%, 1,34 mL O₂/g. Pelepasan O₂ saat olahraga dibanding istirahat ≈ … kali.",["2,7","1,5","2,0","3,5","4,0"]],
+["Hukum Laplace: T = P × r. Aorta (r 1,25 cm; P 100 mmHg) dan kapiler (r 4 µm; P 25 mmHg). Tegangan dinding aorta ≈ … kali kapiler.",["12.500","4","500","3.125","50.000"]],
+["Vena menampung ±64% dari 5 L volume darah. Saat perdarahan, venokonstriksi mengurangi volume vena sebesar 10%. Berapa mL darah dimobilisasi ke sirkulasi sentral?",["320","80","130","500","640"]],
+["Pasien: denyut 120/menit, volume sekuncup 40 mL, TD 90/60 mmHg, Hb 8 g/dL. Curah jantung dan interpretasinya:",["4,8 L/menit; takikardia mengompensasi volume sekuncup yang turun akibat preload berkurang","4,8 L/menit; kontraktilitas meningkat sehingga volume sekuncup naik","2,4 L/menit; gagal jantung total","12 L/menit; kondisi hiperdinamik normal","4,8 L/menit; resistensi perifer menurun sehingga TD turun"]]
+];
+const N=Q.length,L="ABCDE",app=document.getElementById("app");
+let db=null,user=null,uid=null,nama="",kelas="",cur=0,ans=[],items=[],done=false,benar=0;
+const h=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]]}return a};
+function intro(msg,prev){
+ app.innerHTML=`<h1>Kuis HOTS Sistem Peredaran Darah</h1><div class="mu">Biologi Kelas XII · ${N} soal pilihan ganda · literasi numerasi (gaya OSN/POSI)</div>
+ <div class="card"><b>Aturan</b><ul><li>Jawaban hanya dapat dipilih satu kali dan tidak bisa diubah atau kembali.</li><li>Dilarang membuka tab atau jendela lain. Jika terdeteksi, kuis langsung selesai dan soal yang belum dijawab dianggap salah.</li><li>Setiap akun hanya dapat mengerjakan satu kali. Nilai tersimpan otomatis ke guru.</li></ul></div>
+ <div class="card" id="box"></div><div id="rk"></div>`;
+ const b=document.getElementById("box");
+ if(prev){b.innerHTML=`<b>Anda sudah mengerjakan kuis ini.</b><div class="big">${prev.skor}</div><div class="mu">Benar ${prev.benar} dari ${N}</div>`;return}
+ if(msg){b.innerHTML=`<span class="mu">${msg}</span>`;return}
+ b.innerHTML=`<label>Nama lengkap<input id="n" autocomplete="off"></label><label>Kelas<input id="k" autocomplete="off" placeholder="mis. XII-3"></label><button class="btn" id="go">Mulai kuis</button>`;
+ document.getElementById("go").onclick=()=>{nama=document.getElementById("n").value.trim();kelas=document.getElementById("k").value.trim();if(!nama||!kelas){alert("Isi nama dan kelas.");return}start()};
+}
+function start(){
+ items=Q.map(q=>({t:q[0],o:shuf(q[1].map((x,i)=>({x,c:i===0})))}));
+ ans=[];cur=0;benar=0;done=false;
+ document.addEventListener("visibilitychange",vis);
+ show();
+}
+function vis(){if(document.hidden)finish("keluar-tab")}
+function show(){
+ const it=items[cur];
+ app.innerHTML=`<div class="mu">${nama} · ${kelas}</div><div class="bar" style="margin:8px 0"><i style="width:${cur/N*100}%"></i></div>
+ <div class="card"><div class="mu">Soal ${cur+1} dari ${N}</div><p style="margin:8px 0 12px">${h(it.t)}</p>
+ ${it.o.map((o,i)=>`<button class="opt" data-i="${i}"><b>${L[i]}.</b> ${h(o.x)}</button>`).join("")}
+ <div style="text-align:right;margin-top:12px"><button class="btn" id="nx" disabled>${cur===N-1?"Selesai":"Lanjut"}</button></div></div>`;
+ app.querySelectorAll(".opt").forEach(b=>b.onclick=()=>{
+  if(ans[cur]!==undefined)return;
+  const i=+b.dataset.i;ans[cur]=i;if(it.o[i].c)benar++;
+  app.querySelectorAll(".opt").forEach(x=>x.disabled=true);b.classList.add("s");
+  document.getElementById("nx").disabled=false});
+ document.getElementById("nx").onclick=()=>{if(cur===N-1)finish("selesai");else{cur++;show()}};
+}
+async function finish(why){
+ if(done)return;done=true;document.removeEventListener("visibilitychange",vis);
+ const dj=ans.filter(a=>a!==undefined).length,skor=Math.round(benar/N*1000)/10;
+ app.innerHTML=`<h1>${why==="selesai"?"Kuis selesai":"Kuis dihentikan"}</h1><div class="card">${why==="selesai"?"":'<p>Anda meninggalkan halaman kuis, sehingga kuis otomatis diakhiri.</p>'}<div class="mu">${nama} · ${kelas}</div><div class="big">${skor}</div><div class="mu">Benar ${benar} dari ${N} soal · dijawab ${dj}</div><p id="st" class="mu">Menyimpan nilai…</p></div>`;
+ const st=()=>document.getElementById("st");
+ try{
+  if(!db||!uid){st().textContent="Nilai belum tersimpan ke akun guru karena Anda belum masuk akun. Tunjukkan layar ini kepada guru.";return}
+  const ref=db.doc("results/"+uid),ex=await ref.get();
+  if(!ex.exists)await ref.set({nama,kelas,skor,benar,dijawab:dj,status:why,waktu:new Date().toISOString()});
+  st().textContent="Nilai tersimpan ke akun guru.";
+ }catch(e){st().textContent="Nilai gagal tersimpan. Hubungi guru dan jangan tutup halaman ini."}
+}
+async function rekap(){
+ const rk=document.getElementById("rk");rk.innerHTML='<div class="card mu">Memuat…</div>';
+ try{
+  const s=await db.collection("results").get();
+  const r=s.docs.map(d=>d.data()).sort((a,b)=>(a.kelas+a.nama).localeCompare(b.kelas+b.nama));
+  rk.innerHTML=`<div class="card"><b>Rekap nilai (${r.length} siswa)</b><div class="w"><table><tr><th>Nama</th><th>Kelas</th><th>Skor</th><th>Benar</th><th>Dijawab</th><th>Status</th></tr>${r.map(x=>`<tr><td>${h(x.nama)}</td><td>${h(x.kelas)}</td><td>${x.skor}</td><td>${x.benar}</td><td>${x.dijawab}</td><td>${x.status==="selesai"?"Selesai":"Keluar tab"}</td></tr>`).join("")}</table></div></div>`;
+ }catch(e){rk.innerHTML='<div class="card mu">Gagal memuat rekap.</div>'}
+}
+(async()=>{
+ intro("");
+ try{user=await claude.use("user");db=await claude.use("db")}catch(e){}
+ if(!db||!user)return;
+ try{uid=await user.id();
+  if(uid){const s=await db.doc("results/"+uid).get();if(s.exists&&!nama&&!done){intro("",s.data())}}
+ }catch(e){}
+ try{if(user.isOwner()&&!nama){const b=document.createElement("button");b.className="btn";b.style.marginTop="16px";b.textContent="Lihat rekap nilai (guru)";b.onclick=rekap;document.getElementById("rk").before(b)}}catch(e){}
+})();
+</script></body></html>
